@@ -1,9 +1,48 @@
-
-
+import matrix.*
 describe "group of tests " {
 
-  test "test 01" {
-    assert.equals(100, 50+50)
+  test "Cuando neo salta su vitalidad se reduce a 5 (porque su energia baja a 50)" {
+    neo.saltar()
+    assert.equals(5 , neo.vitalidad())
+  }
+
+  test "Morfeo salto 2 veces por lo tanto no esta cansado" {
+    morfeo.saltar()
+    morfeo.saltar()
+    assert.notThat(morfeo.estaCansado())
+  }
+
+  test "La nave tiene 3 integrantes" {
+    assert.equals(3, nave.cantidadDePasajeros())
+  }
+
+  test "Neo es el pasajero de mayor vitalidad" {
+    assert.equals(neo, nave.pasajeroDeMayorVitalidad())
+  }
+
+  test "La nave no esta equilibrada (trinity tiene 0 de vitalidad por lo tanto mientras ella sea pasajera, no puede estarlo)" {
+    assert.notThat(nave.estaEquilibrado())
+  }
+
+  test "Neo (que es el elegido) esta en la nave" {
+    assert.that(nave.estaElElegido())
+  }
+
+  test "La nave choca, por lo tanto queda vacia" {
+    nave.chocar()
+    assert.equals(0, nave.cantidadDePasajeros())
+  }
+
+  test "Luego de que la nave choca morfeo se cansa y su vitalidad baja a 7" {
+    nave.chocar()
+    assert.that(morfeo.estaCansado())
+    assert.equals(7, morfeo.vitalidad())
+  }
+
+  test "Luego de que la nave acelera, neo ya no esta en la nave (porque es el elegido)" {
+    nave.acelerar()
+    assert.notThat(nave.estaElElegido())
   }
 
 }
+
